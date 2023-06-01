@@ -1,0 +1,12 @@
+.bor > *{
+    border: 0.1px solid white;
+}
+/* .bor > :nth-child(odd) {
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  .bor > :nth-child(even) {
+    border-right: none;
+    border-bottom: none;
+  } */
