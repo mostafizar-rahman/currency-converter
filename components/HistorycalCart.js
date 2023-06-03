@@ -17,59 +17,55 @@ import {
   AreaChart,
 } from "recharts";
 
-const HistorycalCart = ({ startDate, endDate }) => {
-  const [historyData, setHistorycalData] = useState([]);
+const HistorycalCart = ({ startDate }) => {
+  const [timeSeriseData, setTimeSeriseData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { state } = useContext(FORM_CONTEXT);
   const { fromContary, toContary } = state;
-  const [getCountry, setGetCountry] = useState("");
-
+  const [countryCodeFromLocalstroge, setCountryCodeFromLocalstroge] =
+    useState("");
 
   useEffect(() => {
-  
     // ----------- Get localStroge country code
-    setGetCountry(getCountryCode());
+    setCountryCodeFromLocalstroge(getCountryCode());
 
     // -------- This api call for get currency time series
-    fetch(
-      `https://api.exchangerate.host/timeseries?start_date=${startDate}&end_date=${endDate}&base=${fromContary}`
-    )
+
+    const url = `https://api.exchangerate.host/timeseries?start_date=${startDate}&end_date=2023-06-01&base=${fromContary}`;
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         setLoading(true);
         if (data.success) {
-          setHistorycalData(data);
+          setTimeSeriseData(data);
         }
         setLoading(false);
       });
-
-  }, [fromContary, startDate, endDate]);
+  }, [fromContary, startDate]);
 
   if (loading) return <h1 className="text-center mt-40 text-white">Loading</h1>;
 
   // --------- Convert the time serise object an array
-  const historyDataList = [];
-  if (historyData) {
-    for (const key in historyData.rates) {
-      historyDataList.push({
-        [toContary || getCountry]:
-          historyData.rates[key][toContary || getCountry],
+  const timeSeriseLists = [];
+  if (timeSeriseData) {
+    for (const key in timeSeriseData.rates) {
+      timeSeriseLists.push({
+        [toContary || countryCodeFromLocalstroge]:
+          timeSeriseData.rates[key][toContary || countryCodeFromLocalstroge],
         date: key,
       });
     }
   }
 
- 
-
-
   // const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
-    <div>
-
+    <div className="w-full">
+      {/* <ResponsiveContainer> */}
       <AreaChart
         width={600}
         height={300}
-        data={historyDataList}
+        data={timeSeriseLists}
         margin={{
           top: 5,
           right: 30,
@@ -83,8 +79,12 @@ const HistorycalCart = ({ startDate, endDate }) => {
         <Tooltip />
         <Legend />
 
-        <Area dataKey={toContary || getCountry} fill="#82ca9d" />
+        <Area
+          dataKey={toContary || countryCodeFromLocalstroge}
+          fill="#82ca9d"
+        />
       </AreaChart>
+      {/* </ResponsiveContainer> */}
     </div>
   );
 };

@@ -18,5 +18,7 @@ const useCountries = () => {
   return countriesList;
 };
 
-// console.log(useCountries())
+
+
+
 export default useCountries;

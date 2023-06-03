@@ -5,7 +5,7 @@ import { FORM_CONTEXT } from "@/context/FormProvider/FormProvider";
 import { actionTypes } from "@/context/ActionTypes/ActionTypes";
 import { getCountryCode } from "@/localStroge/localStroge";
 
-const ConverterForm = ({ symbols, base }) => {
+const ConverterForm = ({ countryCode}) => {
   const countriesList = useCountries();
   const { dispatch, state } = useContext(FORM_CONTEXT);
   const resultInput = useRef(null);
@@ -17,7 +17,7 @@ const ConverterForm = ({ symbols, base }) => {
 
     dispatch({
       type: actionTypes.FROM_CONTARY_NAME,
-      payload: symbols,
+      payload: countryCode,
     });
 
     if (!getCountryCode()) {
@@ -28,7 +28,7 @@ const ConverterForm = ({ symbols, base }) => {
     }
 
    
-  }, [symbols]);
+  }, [countryCode]);
 
   // console.log(getCountry)
   // const xx = state.toContary || getCountryCode()
@@ -49,7 +49,7 @@ const ConverterForm = ({ symbols, base }) => {
   };
 
   return (
-    <div className="py-8 px-3 bg-white w-96 rounded-lg min-h-[300px] flex flex-col justify-center ">
+    <div className="py-8 px-3 bg-white max-w-sm w-full rounded-lg min-h-[300px] flex flex-col justify-center ">
       <h3 className="text-black text-2xl font-bold mb-4">Calclute</h3>
       <form onSubmit={handleConvertFormSubmit}>
         <div>
@@ -75,11 +75,12 @@ const ConverterForm = ({ symbols, base }) => {
               );
             })}
           </select>
+         
           <input
             type="number"
-            placeholder="Enter Your Amount"
+            placeholder="1"
             className="py-3 outline-none rounded-lg w-full px-2 mt-3"
-            // value={state.fromAmount}
+            
             onChange={(e) =>
               dispatch({
                 type: actionTypes.FROM_AMOUNT,

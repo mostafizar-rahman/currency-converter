@@ -5,8 +5,8 @@ const Home = () => {
   return (
     <div className={`${HomeStyle.homeBg}`}>
       <div className="max-w-[1100px] w-full mt-16 mx-auto px-4 md:pt-24 pt-10 pb-5 md:pb-0 flex md:flex-row flex-col gap-4 items-center justify-between">
-        <div className="max-w-lg">
-          <h3 className="font-bold text-3xl ">
+        <div className="lg:max-w-lg max-w-md">
+          <h3 className="font-bold md:text-3xl text-2xl">
             "Money is only a tool. It will take you wherever you wish, but it
             will not replace you as the driver." -{" "}
             <span className="text-sm">Ayn Rand</span>

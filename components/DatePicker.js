@@ -1,70 +1,65 @@
 import React, { useEffect, useRef, useState } from "react";
 import HistorycalCart from "./HistorycalCart";
+import HistorycalChart from "./HistorycalChart";
 
-const DatePicker = () => {
-  const [check, setCheck] = useState({});
+const DatePicker = ({}) => {
+  const [durationCheck, setDurationCheck] = useState({});
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+
   const resultInput = useRef(null);
 
   const date = new Date();
   useEffect(() => {
+    // --------- When First time load the page this date by default set 1 month
     if (resultInput.current.value === "1m") {
-      const previousDate = `${date.getFullYear()}-${
+      const previousDate = `${date.getFullYear()}-0${
         date.getMonth() + 1 - 1
-      }-${date.getDate()}`;
-      const newDate = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      }-0${date.getDate()}`;
 
       setStartDate(previousDate);
-      setEndDate(newDate);
-      setCheck("1m");
+      setDurationCheck("1m");
     }
   }, []);
 
-  const handleActiveCheck = (e) => {
+  // ---------- When the user clicked the duration button set the duration date as month/year
+  const handleDurationCheck = (e) => {
     const value = e.target.value;
 
     if (value === "1m") {
-      const previousDate = `${date.getFullYear()}-${
+      const previousDate = `${date.getFullYear()}-0${
         date.getMonth() + 1 - 1
-      }-${date.getDate()}`;
-      const newDate = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      }-0${date.getDate()}`;
 
       setStartDate(previousDate);
-      setEndDate(newDate);
     } else if (value === "6m") {
-      const previousDate = `${date.getFullYear()}-${
-        date.getMonth() + 1 - 6
-      }-${date.getDate()}`;
-      const newDate = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      const previousDate = `${date.getFullYear()}-0${
+        +date.getMonth() + 1 - 6
+      }-0${date.getDate()}`;
+
       setStartDate(previousDate);
-      setEndDate(newDate);
     } else if (value === "1y") {
-      const previousDate = `${date.getFullYear() - 1}-${
+      const previousDate = `${date.getFullYear() - 1}-0${
         date.getMonth() + 1
-      }-${date.getDate()}`;
-      const newDate = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      }-0${date.getDate()}`;
+
       setStartDate(previousDate);
-      setEndDate(newDate);
+    } else if (value === "2y") {
+      const previousDate = `${date.getFullYear() - 2}-0${
+        date.getMonth() + 1
+      }-0${date.getDate()}`;
+
+      setStartDate(previousDate);
     }
-    setCheck(value);
+    setDurationCheck(value);
   };
   return (
-    <div>
+    <div className="mt-12 lg:mt-0">
       <div className="flex justify-between items-center">
         <div>
           <label
             htmlFor="1m"
             className={`${
-              check === "1m" ? "bg-green-400" : "bg-transparent"
+              durationCheck === "1m" ? "bg-green-400" : "bg-transparent"
             } w-8 h-8 rounded-full text-center flex justify-center items-center`}
           >
             1M
@@ -74,17 +69,16 @@ const DatePicker = () => {
             type="radio"
             name="date"
             id="1m"
-            // defaultChecked={check === "1m"}
             value="1m"
             hidden
-            onChange={handleActiveCheck}
+            onChange={handleDurationCheck}
           />
         </div>
         <div>
           <label
             htmlFor="6m"
             className={`${
-              check === "6m" ? "bg-green-400" : "bg-transparent"
+              durationCheck === "6m" ? "bg-green-400" : "bg-transparent"
             } w-8 h-8 rounded-full text-center flex justify-center items-center`}
           >
             6M
@@ -95,14 +89,14 @@ const DatePicker = () => {
             id="6m"
             hidden
             value="6m"
-            onChange={handleActiveCheck}
+            onChange={handleDurationCheck}
           />
         </div>
         <div>
           <label
             htmlFor="1y"
             className={`${
-              check === "1y" ? "bg-green-400" : "bg-transparent"
+              durationCheck === "1y" ? "bg-green-400" : "bg-transparent"
             } w-8 h-8 rounded-full text-center flex justify-center items-center`}
           >
             1Y
@@ -113,14 +107,14 @@ const DatePicker = () => {
             id="1y"
             hidden
             value="1y"
-            onChange={handleActiveCheck}
+            onChange={handleDurationCheck}
           />
         </div>
         <div>
           <label
             htmlFor="2y"
             className={`${
-              check === "2y" ? "bg-green-400" : "bg-transparent"
+              durationCheck === "2y" ? "bg-green-400" : "bg-transparent"
             } w-8 h-8 rounded-full text-center flex justify-center items-center`}
           >
             2Y
@@ -131,11 +125,14 @@ const DatePicker = () => {
             id="2y"
             hidden
             value="2y"
-            onChange={handleActiveCheck}
+            onChange={handleDurationCheck}
           />
         </div>
       </div>
-      <HistorycalCart startDate={startDate} endDate={endDate} />
+      {/* <HistorycalCart startDate={startDate} /> */}
+      <div className="lg:w-[700px] md:w-[500px] sm:w-[500px] w-[300px]   ">
+        <HistorycalChart startDate={startDate} />
+      </div>
     </div>
   );
 };

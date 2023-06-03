@@ -1,6 +1,5 @@
 import { setCountryCode } from "@/localStroge/localStroge";
 import { actionTypes } from "../ActionTypes/ActionTypes";
-import { getCookieParser } from "next/dist/server/api-utils";
 
 export const initialState = {
   fromContary: "",
