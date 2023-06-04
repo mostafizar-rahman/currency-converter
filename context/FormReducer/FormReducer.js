@@ -11,6 +11,8 @@ export const initialState = {
 const formReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.FROM_CONTARY_NAME:
+      
+      // state.fromContary=""
       if (state.toContary !== action.payload) {
         // if (action.payload === undefined) {
         //   return {

@@ -15,7 +15,8 @@ const HistorycalChart = ({ startDate }) => {
   const [countryCodeFromLocalstroge, setCountryCodeFromLocalstroge] =
     useState("");
 
-  const { query } = useRouter();
+  // const { query } = useRouter();
+  
 
   useEffect(() => {
     // ------------- Pick Today date
@@ -26,29 +27,40 @@ const HistorycalChart = ({ startDate }) => {
 
     // ----------- Get localStroge country code
     setCountryCodeFromLocalstroge(getCountryCode());
-
+    // const fromContary=""
     // -------- This api call for get currency time series
-    const url = `https://api.exchangerate.host/timeseries?start_date=${startDate}&end_date=${endDate}&base=${fromContary}&symbols=${
-      toContary || countryCodeFromLocalstroge
-    }`;
+    // const url = ;
 
-    fetch(url)
+    console.log(fromContary)
+    // console.log(url)
+    fetch(`https://api.exchangerate.host/timeseries?start_date=${startDate}&end_date=${endDate}&base=${fromContary}&symbols=${
+      toContary || countryCodeFromLocalstroge
+    }`)
       .then((res) => res.json())
       .then((data) => {
         // setLoading(true);
-        if (data.success) {
-          dispatch({
-            type: actionTypes.FROM_CONTARY_NAME,
-            payload: query.id,
-          });
+      
+        if(Object.keys(data.rates).length !== 0){
           setTimeSeriseData(data);
         }
+        // if(Object.keys(data.rates).length === 0){
+        //   dispatch({
+        //     type: actionTypes.FROM_CONTARY_NAME,
+        //     payload: query.id,
+        //   });
+        // }
+         
+          // dispatch({
+          //   type: actionTypes.FROM_CONTARY_NAME,
+          //   payload: query.id,
+          // });
+        
         // setLoading(false);
       })
       .catch((error) => console.log("Somthing is worring"));
   }, [fromContary, toContary, countryCodeFromLocalstroge, startDate]);
 
-  // console.log(timeSeriseData)
+  console.log(timeSeriseData)
   //   ----------- Time serise object convert in array
   const labels = [];
   const data = [];

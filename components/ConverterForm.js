@@ -4,12 +4,16 @@ import useCountries from "@/hooks/useCountries";
 import { FORM_CONTEXT } from "@/context/FormProvider/FormProvider";
 import { actionTypes } from "@/context/ActionTypes/ActionTypes";
 import { getCountryCode } from "@/localStroge/localStroge";
+import { useRouter } from "next/router";
 
-const ConverterForm = ({ countryCode}) => {
+const ConverterForm = () => {
   const countriesList = useCountries();
   const { dispatch, state } = useContext(FORM_CONTEXT);
   const resultInput = useRef(null);
   const [getCountry, setGetCountry] = useState('')
+  
+
+  const { query } = useRouter();
   
   useEffect(() => {
     setGetCountry(getCountryCode()) 
@@ -18,7 +22,7 @@ const ConverterForm = ({ countryCode}) => {
 
     dispatch({
       type: actionTypes.FROM_CONTARY_NAME,
-      payload: countryCode,
+      payload: query.id,
     });
    
 
@@ -30,7 +34,7 @@ const ConverterForm = ({ countryCode}) => {
     }
 
    
-  }, [countryCode]);
+  }, [query]);
 
   // console.log(getCountry)
   // const xx = state.toContary || getCountryCode()
