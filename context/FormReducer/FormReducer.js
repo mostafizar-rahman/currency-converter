@@ -12,14 +12,14 @@ const formReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.FROM_CONTARY_NAME:
       if (state.toContary !== action.payload) {
-        if (action.payload === undefined) {
-          return {
-            ...state,
-            fromContary: "default",
-            // fromAmount: "",
-            // toAmount: "",
-          };
-        }
+        // if (action.payload === undefined) {
+        //   return {
+        //     ...state,
+        //     fromContary: "default",
+        //     // fromAmount: "",
+        //     // toAmount: "",
+        //   };
+        // }
         return {
           ...state,
           fromContary: action.payload,

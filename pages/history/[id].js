@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 const historyDetails = () => {
 
   const { query } = useRouter();
-
+// console.log(query.id)
   
  
   return (
@@ -19,7 +19,7 @@ const historyDetails = () => {
         </div>
         <div>
           {/* <HistorycalCart symbols={query.id} base={"USD"}/> */}
-          <DatePicker countryCode={query.id}/>
+          <DatePicker />
         </div>
       </div>
       <LatestPrice/>

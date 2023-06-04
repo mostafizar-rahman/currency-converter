@@ -14,11 +14,13 @@ const ConverterForm = ({ countryCode}) => {
   useEffect(() => {
     setGetCountry(getCountryCode()) 
     resultInput.current.value = "";
+   
 
     dispatch({
       type: actionTypes.FROM_CONTARY_NAME,
       payload: countryCode,
     });
+   
 
     if (!getCountryCode()) {
       dispatch({

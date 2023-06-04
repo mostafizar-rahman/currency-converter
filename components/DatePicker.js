@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import HistorycalCart from "./HistorycalCart";
 import HistorycalChart from "./HistorycalChart";
 
-const DatePicker = ({}) => {
+const DatePicker = () => {
   const [durationCheck, setDurationCheck] = useState({});
   const [startDate, setStartDate] = useState("");
 
