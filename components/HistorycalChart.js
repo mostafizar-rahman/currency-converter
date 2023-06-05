@@ -89,6 +89,10 @@ const HistorycalChart = ({ startDate }) => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
+    tooltips: {
+      enabled: true
+    },
     scales: {
       y: {
         // beginAtZero: true,

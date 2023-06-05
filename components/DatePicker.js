@@ -130,7 +130,7 @@ const DatePicker = () => {
         </div>
       </div>
       {/* <HistorycalCart startDate={startDate} /> */}
-      <div className="lg:w-[700px] md:w-[500px] sm:w-[500px] w-[300px]   ">
+      <div className="lg:w-[700px] md:w-[500px] sm:w-[500px] w-[300px]   h-[400px]">
         <HistorycalChart startDate={startDate} />
       </div>
     </div>
