@@ -6,17 +6,26 @@ const LatestPrice = () => {
   const countriesList = useCountries();
 
   useEffect(() => {
-    const date = new Date();
-    const newDate = `${date.getFullYear()}-0${
-      date.getMonth() + 1
-    }-0${date.getDate()}`;
+    const fullDate = new Date();
+    const year = fullDate.getFullYear();
+    const month =
+      fullDate.getMonth().toString().length < 2
+        ? `0${fullDate.getMonth() + 1}`
+        : fullDate.getMonth() + 1;
+    const date =
+      fullDate.getDate().toString().length < 2
+        ? `0${fullDate.getDate()}`
+        : fullDate.getDate();
 
-    fetch(`https://api.exchangerate.host/timeseries?start_date=${newDate}&end_date=${newDate}&base=USD`)
+    const newDate = `${year}-${month}-${date}`;
+
+    fetch(
+      `https://api.exchangerate.host/timeseries?start_date=${newDate}&end_date=${newDate}&base=USD`
+    )
       .then((res) => res.json())
       .then((data) => setRates(data.rates[newDate]));
   }, []);
 
-  console.log(rates)
   //   ------------- Create a object with country name, country code and latest rate
   const latestRates = [];
   for (const key in rates) {
@@ -34,7 +43,9 @@ const LatestPrice = () => {
 
   return (
     <div className="mt-36 mx-auto max-w-5xl flex justify-center flex-col">
-      <h3 className="text-xl font-semibold mb-8 text-[#20e04ae4]">Latest currency rate base on USD</h3>
+      <h3 className="text-xl font-semibold mb-8 text-[#20e04ae4]">
+        Latest currency rate base on USD
+      </h3>
       <div>
         <div className="hidden sm:grid sm:grid-cols-[330px_150px_120px] md:grid-cols-[430px_150px_120px] lg:grid-cols-[400px_200px_120px] mb-5">
           <h5 className="text-lg font-semibold">Country Name</h5>

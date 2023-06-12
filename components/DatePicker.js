@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import HistorycalCart from "./HistorycalCart";
 import HistorycalChart from "./HistorycalChart";
 
 const DatePicker = () => {
@@ -8,14 +7,21 @@ const DatePicker = () => {
 
   const resultInput = useRef(null);
 
-  const date = new Date();
+  const fullDate = new Date();
+  const year = fullDate.getFullYear();
+  const month =
+    fullDate.getMonth().toString().length < 2
+      ? `0${fullDate.getMonth() + 1}`
+      : fullDate.getMonth() + 1;
+  const date =
+    fullDate.getDate().toString().length < 2
+      ? `0${fullDate.getDate()}`
+      : fullDate.getDate();
+
   useEffect(() => {
     // --------- When First time load the page this date by default set 1 month
     if (resultInput.current.value === "1m") {
-      const previousDate = `${date.getFullYear()}-0${
-        date.getMonth() + 1 - 1
-      }-0${date.getDate()}`;
-
+      const previousDate = `${year}-${month - 1}-${date}`;
       setStartDate(previousDate);
       setDurationCheck("1m");
     }
@@ -26,27 +32,19 @@ const DatePicker = () => {
     const value = e.target.value;
 
     if (value === "1m") {
-      const previousDate = `${date.getFullYear()}-0${
-        date.getMonth() + 1 - 1
-      }-0${date.getDate()}`;
+      const previousDate = `${year}-${month - 1}-${date}`;
 
       setStartDate(previousDate);
     } else if (value === "6m") {
-      const previousDate = `${date.getFullYear()}-0${
-        +date.getMonth() + 1 - 6
-      }-0${date.getDate()}`;
+      const previousDate = `${year}-${month - 6}-${date}`;
 
       setStartDate(previousDate);
     } else if (value === "1y") {
-      const previousDate = `${date.getFullYear() - 1}-0${
-        date.getMonth() + 1
-      }-0${date.getDate()}`;
+      const previousDate = `${year - 1}-${month}-${date}`;
 
       setStartDate(previousDate);
     } else if (value === "2y") {
-      const previousDate = `${date.getFullYear() - 2}-0${
-        date.getMonth() + 1
-      }-0${date.getDate()}`;
+      const previousDate = `${year - 2}-${month}-${date}`;
 
       setStartDate(previousDate);
     }
@@ -129,7 +127,6 @@ const DatePicker = () => {
           />
         </div>
       </div>
-      {/* <HistorycalCart startDate={startDate} /> */}
       <div className="lg:w-[700px] md:w-[500px] sm:w-[500px] w-[300px]   h-[400px]">
         <HistorycalChart startDate={startDate} />
       </div>

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import isoCountries from "iso-country-currency";
 import useCountries from "@/hooks/useCountries";
 import { FORM_CONTEXT } from "@/context/FormProvider/FormProvider";
 import { actionTypes } from "@/context/ActionTypes/ActionTypes";
@@ -36,9 +35,6 @@ const ConverterForm = () => {
    
   }, [query]);
 
-  // console.log(getCountry)
-  // const xx = state.toContary || getCountryCode()
-
   const handleConvertFormSubmit = (e) => {
     e.preventDefault();
 
@@ -48,7 +44,6 @@ const ConverterForm = () => {
       .then((response) => response.json())
       .then((result) => {
         dispatch({ type: actionTypes.TO_AMOUNT, payload: result.result });
-        // setResultAmount(result);
         e.target.reset();
       })
       .catch((error) => console.log("error", error));

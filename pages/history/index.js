@@ -19,7 +19,7 @@ const History = () => {
     setSearchingCountryList(filteredCountry);
   };
 
-  // console.log(searchingCountryList)
+
   // -------------- Search country by full name
   const handleSearchCountryByName = () => {};
 
